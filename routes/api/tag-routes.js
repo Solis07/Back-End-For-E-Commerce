@@ -13,8 +13,6 @@ router.get("/", (req, res) => {
       {
         model: Product,
         attributes: ["id", "product_name", "price", "stock", "category_id"],
-        through: ProductTag,
-        as: "products"
       }
     ]
   })
@@ -36,8 +34,6 @@ router.get("/:id", (req, res) => {
       {
         model: Product,
         attributes: ["id", "product_name", "price", "stock", "category_id"],
-        through: ProductTag,
-        as: "products"
       }
     ]
   })
@@ -58,6 +54,7 @@ router.post("/", (req, res) => {
   // create a new tag
   
   Tag.create({
+    id: req.body.id,
     tag_name: req.body.tag_name,
   })
     .then((dbTagData) => res.json(dbTagData))
@@ -69,7 +66,7 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
-
+  
   Tag.update(
     {
       tag_name: req.body.tag_name,
@@ -93,7 +90,7 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete on tag by its `id` value
-  
+
   Tag.destroy({
     where: { id: req.params.id },
   })
